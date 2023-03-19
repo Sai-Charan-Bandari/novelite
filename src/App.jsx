@@ -13,8 +13,21 @@ function App() {
     // console.log(k)
     setclist(k.categories)
   }
+  const [isMobile, setIsMobile] = useState(false)
+    //choose the screen size 
+    const handleResize = () => {
+      if (window.innerWidth < 720) {
+          setIsMobile(true)
+      } else {
+          setIsMobile(false)
+      }
+  }
+
   useEffect(()=>{
     getCategories()
+
+        // create an event listener
+        window.addEventListener("resize", handleResize)
   },[])
   useEffect(()=>{
     console.log(clist)
@@ -23,9 +36,9 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<CategoryCard clist={clist}/>}></Route>
-        <Route path='/book/:url' element={<BookCard/>}></Route>
-        <Route path='/books/:url' element={<BookListCard/>}></Route>
+        <Route path='/' element={<CategoryCard clist={clist} isMobile={isMobile}/>}></Route>
+        <Route path='/book/:url' element={<BookCard isMobile={isMobile}/>}></Route>
+        <Route path='/books/:url' element={<BookListCard isMobile={isMobile}/>}></Route>
         <Route path='*' element={<PgNotFound/>}></Route>
       </Routes>
     </BrowserRouter>

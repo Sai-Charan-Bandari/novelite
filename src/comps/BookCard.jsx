@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import {useParams,useNavigate } from 'react-router-dom'
 
-function BookCard() {
+function BookCard({isMobile}) {
     let {url}=useParams()
     let [bookData,setBookData]=useState({})
     
@@ -18,21 +18,25 @@ function BookCard() {
     },[])
 
   return (
-    <div> 
-    BookCard
-    <h1>{bookData.name}</h1>
-    <div><img src={bookData.img} width='50px'/></div>
-    <div>{bookData.availability}</div>
+    <div className='card text-center'> 
+    <h1 className='card-header'>{bookData.name}</h1>
+    <div><img src={bookData.img} width={isMobile ? 250 : 350} height={isMobile ? 250 : 350} className='rounded-3 mt-2'/></div>
+    <div >
+    <div className='card-body'>{bookData.availability}</div>
     <div>{bookData.price}</div>
     <div>{bookData.rating}</div>
+    </div>
     <h1>description</h1>
-    <div>{bookData.desc}</div>
-    <div>{bookData.upc}</div>
-    <div>{bookData.ptype}</div>
-    <div>{bookData.price_exc}</div>
-    <div>{bookData.price_inc}</div>
-    <div>{bookData.tax}</div>
-    <div>{bookData.no_of_reviews}</div>
+    <div className='card m-4'>{bookData.desc}</div>
+    <h1>Product info</h1>
+    <div className='card m-4'>
+    <div>UPC : {bookData.upc}</div>
+    <div>Product Type : {bookData.ptype}</div>
+    <div>Price Exclusive of Taxes : {bookData.price_exc}</div>
+    <div>Price Inclusive of Taxes : {bookData.price_inc}</div>
+    <div>Tax : {bookData.tax}</div>
+    <div>No. of Reviews : {bookData.no_of_reviews}</div>
+    </div>
     </div>
   )
 }
