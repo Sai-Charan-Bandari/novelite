@@ -18,13 +18,25 @@ function BookListCard() {
     console.log(url)
         getBooks(url)
     },[])
+
   return (
     <div>
     BookListCard
      {blist.map((e,i)=>
       <div key={i}>
-      <button onClick={()=>{nav('/book/'+encodeURIComponent(url))}}>
-      {e.name}{e.rating}{e.price}
+      <button onClick={()=>{nav('/book/'+encodeURIComponent(e.url))}}>
+      <div>
+      {e.name}
+      </div>
+      <div>
+      {e.rating}
+      </div>
+      <div>
+      {e.price}
+      </div>
+      <div>
+      {e.availability}
+      </div>
       </button>
       </div>
      )}
