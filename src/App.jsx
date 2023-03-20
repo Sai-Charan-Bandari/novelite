@@ -4,6 +4,7 @@ import {Routes,BrowserRouter,Route} from 'react-router-dom'
 import BookCard from './comps/BookCard'
 import CategoryCard from './comps/CategoryCard'
 import BookListCard from './comps/BookListCard'
+import Welcome from './comps/Welcome'
 
 function App() {
   let [clist,setclist]=useState([])
@@ -53,9 +54,5 @@ function PgNotFound(){
       <div>Pg not found</div>
   )
 }
-function Welcome(){
-  return(
-      <h1 className='m-auto' style={{fontFamily:'lobster'}}>Welcome</h1>
-  )
-}
+
 export default App

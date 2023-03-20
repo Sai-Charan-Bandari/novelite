@@ -28,10 +28,10 @@ function BookListCard({isMobile}) {
     </div>
         <div style={isMobile ? {display:'grid',gridTemplateColumns:'auto auto'} : {display:'grid',gridTemplateColumns:'auto auto auto auto',gap:0,padding:10,overflow:'scroll',maxHeight:window.outerHeight-100} }>
             {blist.map((e, i) =>
-                <div key={i} className='card m-1'>
-                    <button onClick={() => { nav('/book/' + encodeURIComponent(e.url)) }} className='card-body'>
+                <div key={i} className='card m-1' style={{borderColor:'transparent'}} >
+                    <button onClick={() => { nav('/book/' + encodeURIComponent(e.url)) }} className='card-body rounded-3' style={{backgroundColor:'white',borderColor:'transparent'}}>
                        {isMobile ? <h3 className='card-head'>{e.name}</h3> : <h2 className='card-head'>{e.name}</h2>}
-                        <div><img src={e.img} alt="" width={isMobile ?100:270} height={150} /></div>
+                        <div><img className='rounded-3' src={e.img} alt="" width={isMobile ?100:270} height={150} /></div>
                         <div>
                             {e.rating}
                         </div>
