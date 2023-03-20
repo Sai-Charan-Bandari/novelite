@@ -17,17 +17,21 @@ function BookListCard({isMobile}) {
         // let url=localStorage.getItem('cat')
         console.log(url)
         getBooks(url)
-    }, [])
+    }, [url])
 
     return (
-        <div>
-        <h1 className='text-center card-header'>Book List</h1>
-        <div style={isMobile ? {display:'grid',gridTemplateColumns:'auto auto'} : {display:'grid',gridTemplateColumns:'auto auto auto auto',gap:0} }>
+        <div className='bg-dark'>
+            {/* Heading */}
+    <div style={{display:'flex',flexDirection:'row',padding:10,}}>
+    <button onClick={()=>nav(-1)} style={{marginLeft:5,backgroundColor:'white',borderRadius:3,borderColor:'transparent'}}><img width={30} src="https://cdn-icons-png.flaticon.com/128/271/271220.png" alt="" /></button>
+        <h1 className='text-center card-header m-auto text-white' style={{fontFamily:'lobster'}}>Book List</h1>
+    </div>
+        <div style={isMobile ? {display:'grid',gridTemplateColumns:'auto auto'} : {display:'grid',gridTemplateColumns:'auto auto auto auto',gap:0,padding:10,overflow:'scroll',maxHeight:window.outerHeight-100} }>
             {blist.map((e, i) =>
-                <div key={i} className='card'>
+                <div key={i} className='card m-1'>
                     <button onClick={() => { nav('/book/' + encodeURIComponent(e.url)) }} className='card-body'>
-                        <h1 className='card-head'>{e.name}</h1>
-                        <div><img src={e.img} alt="" width={isMobile ?100:300} height={150} /></div>
+                       {isMobile ? <h3 className='card-head'>{e.name}</h3> : <h2 className='card-head'>{e.name}</h2>}
+                        <div><img src={e.img} alt="" width={isMobile ?100:270} height={150} /></div>
                         <div>
                             {e.rating}
                         </div>

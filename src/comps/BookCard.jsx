@@ -4,7 +4,7 @@ import {useParams,useNavigate } from 'react-router-dom'
 function BookCard({isMobile}) {
     let {url}=useParams()
     let [bookData,setBookData]=useState({})
-    
+    let nav=useNavigate()
     async function getBook(url){
         let k=await fetch('http://localhost:7000/book/'+encodeURIComponent(url))
         k=await k.json()
@@ -19,7 +19,11 @@ function BookCard({isMobile}) {
 
   return (
     <div className='card text-center'> 
-    <h1 className='card-header'>{bookData.name}</h1>
+    {/* Heading */}
+    <div style={{display:'flex',flexDirection:'row'}} className='card-header'>
+    <button onClick={()=>nav(-1)}  style={{backgroundColor:'transparent',borderColor:'transparent'}}><img width={30} src="https://cdn-icons-png.flaticon.com/128/271/271220.png" alt="" /></button>
+    <h1 style={{fontFamily:'lobster'}}>{bookData.name}</h1>
+    </div>
     <div><img src={bookData.img} width={isMobile ? 250 : 350} height={isMobile ? 250 : 350} className='rounded-3 mt-2'/></div>
     <div >
     <div className='card-body'>{bookData.availability}</div>

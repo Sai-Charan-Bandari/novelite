@@ -35,12 +35,15 @@ function App() {
 
   return (
     <BrowserRouter>
+    <div style={!isMobile ? {display:'flex',flexDirection:'row'} : {display:'block'}}>
+    {!isMobile && <CategoryCard clist={clist} isMobile={isMobile}/>}
       <Routes>
-        <Route path='/' element={<CategoryCard clist={clist} isMobile={isMobile}/>}></Route>
+        <Route path='/' element={isMobile ? <CategoryCard clist={clist} isMobile={isMobile}/> : <Welcome/>}></Route>
         <Route path='/book/:url' element={<BookCard isMobile={isMobile}/>}></Route>
         <Route path='/books/:url' element={<BookListCard isMobile={isMobile}/>}></Route>
         <Route path='*' element={<PgNotFound/>}></Route>
       </Routes>
+      </div>
     </BrowserRouter>
       )
 }
@@ -48,6 +51,11 @@ function App() {
 function PgNotFound(){
   return(
       <div>Pg not found</div>
+  )
+}
+function Welcome(){
+  return(
+      <h1 className='m-auto' style={{fontFamily:'lobster'}}>Welcome</h1>
   )
 }
 export default App
