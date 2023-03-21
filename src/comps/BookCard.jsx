@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import {useParams,useNavigate } from 'react-router-dom'
+import LoadingCard from './LoadingCard'
 
 function BookCard({isMobile,bookobj,setbookobj}) {
     let {url}=useParams()
     let nav=useNavigate()
+    let [Loading,setLoading]=useState(false)
     async function getBook(url){
+      setLoading(true)
         let k=await fetch('https://novelite-server2.onrender.com/book/'+encodeURIComponent(url))
         k=await k.json()
         console.log("got ",k)
+        setLoading(false)
         setbookobj({...bookobj,[url]:k})
       }
 
@@ -26,7 +30,8 @@ function BookCard({isMobile,bookobj,setbookobj}) {
     <button onClick={()=>nav(-1)}  style={{backgroundColor:'transparent',borderColor:'transparent'}}><img width={30} src="https://cdn-icons-png.flaticon.com/128/271/271220.png" alt="" /></button>
     <h1 style={{fontFamily:'lobster'}}>{bookobj[url] ? bookobj[url].name : 'Novelite'}</h1>
     </div>
-    {bookobj[url] &&
+    {bookobj[url] && !Loading 
+    ?
     <>
     <div><img src={bookobj[url].img} width={isMobile ? 250 : 350} height={isMobile ? 250 : 350} className='rounded-3 mt-2'/></div>
     <div >
@@ -46,6 +51,8 @@ function BookCard({isMobile,bookobj,setbookobj}) {
     <div>No. of Reviews : {bookobj[url].no_of_reviews}</div>
     </div>
     </>
+    :
+    <LoadingCard/>
     }
     </div>
   )

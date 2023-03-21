@@ -5,6 +5,7 @@ import BookCard from './comps/BookCard'
 import CategoryCard from './comps/CategoryCard'
 import BookListCard from './comps/BookListCard'
 import Welcome from './comps/Welcome'
+import Header from './comps/Header'
 
 function App() {
   let [booklistobj,setbooklistobj]=useState({}) //contains booklist of each category (key is the url of that category)
@@ -38,6 +39,8 @@ function App() {
 
   return (
     <BrowserRouter>
+    <>
+    <Header isMobile={isMobile} />
     <div style={!isMobile ? {display:'flex',flexDirection:'row'} : {display:'block'}}>
     {!isMobile && <CategoryCard clist={clist} isMobile={isMobile}/>}
       <Routes>
@@ -47,6 +50,7 @@ function App() {
         <Route path='*' element={<PgNotFound/>}></Route>
       </Routes>
       </div>
+      </>
     </BrowserRouter>
       )
 }

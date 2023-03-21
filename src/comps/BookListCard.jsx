@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
+import LoadingCard from './LoadingCard'
 
 function BookListCard({isMobile,booklistobj,setbooklistobj}) {
     let nav = useNavigate()
     let { url } = useParams()
-    
+  let [Loading,setLoading]=useState(false)
     async function getBooks(url) {
+        setLoading(true)
         let k = await fetch('https://novelite-server2.onrender.com/books/' + encodeURIComponent(url))
         k = await k.json()
         // console.log(k)
+    setLoading(false)
         setbooklistobj({...booklistobj,[url]:k.books})
     }
 
@@ -21,13 +24,15 @@ function BookListCard({isMobile,booklistobj,setbooklistobj}) {
     }, [url])
 
     return (
-        <div className='bg-dark container-fluid'>
+        <div >
             {/* Heading */}
-    <div style={{display:'flex',flexDirection:'row',padding:10,}}>
+    <div style={{display:'flex',flexDirection:'row',padding:10,borderBottom:'5px solid black'}}>
     <button onClick={()=>nav(-1)} style={{marginLeft:5,backgroundColor:'white',borderRadius:3,borderColor:'transparent'}}><img width={30} src="https://cdn-icons-png.flaticon.com/128/271/271220.png" alt="" /></button>
-        <h1 className='text-center card-header m-auto text-white' style={{fontFamily:'lobster'}}>Book List</h1>
+        <h1 className='text-center card-header m-auto ' style={{fontFamily:'lobster'}}>Book List</h1>
     </div>
-        <div style={isMobile ? {display:'grid',gridTemplateColumns:'auto auto',overflow:'scroll',maxHeight:window.outerHeight-100} : {display:'grid',gridTemplateColumns:'auto auto auto auto',gap:0,padding:10,overflow:'scroll',maxHeight:window.outerHeight-100} }>
+    {Loading ? <LoadingCard />
+    :
+        <div className='bg-dark p-2' style={isMobile ? {display:'grid',gridTemplateColumns:'auto auto',overflow:'scroll',maxHeight:window.outerHeight-100} : {display:'grid',gridTemplateColumns:'auto auto auto auto',gap:0,padding:10,overflow:'scroll',maxHeight:window.outerHeight-100} }>
             {booklistobj[url] && booklistobj[url].map((e, i) =>
                 <div key={i} className='card m-1' style={{borderColor:'transparent'}} >
                     <button onClick={() => { nav('/book/' + encodeURIComponent(e.url)) }} className='card-body rounded-3' style={{backgroundColor:'white',borderColor:'transparent'}}>
@@ -46,6 +51,7 @@ function BookListCard({isMobile,booklistobj,setbooklistobj}) {
                 </div>
             )}
             </div>
+    }
         </div>
     )
 }
