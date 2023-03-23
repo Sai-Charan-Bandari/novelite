@@ -30,6 +30,7 @@ function App() {
   useEffect(()=>{
     getCategories()
 
+    handleResize()
         // create an event listener
         window.addEventListener("resize", handleResize)
   },[])
